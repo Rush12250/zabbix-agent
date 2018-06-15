@@ -60,7 +60,7 @@ def umem(data):
 def lmem(data):
 	pdata=data.split()
 #	lmem_data = pdata[5].split('%')[0]
-	return float(pdata[5][0]+pdata[5][1]+pdata[5][3])*1024
+	return float(pdata[5][0]+pdata[5][1]+pdata[5][3])
 
 def pmem(data):
 	pdata=data.split()
