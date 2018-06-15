@@ -49,33 +49,31 @@ size_options = {
 
 def pcpu(data):
 	pdata=data.split()
-	pcpu_data=pdata[1].split('%')[0]
+	pcpu_data = pdata[2].split('%')[0]
 	return pcpu_data
 
 def umem(data):
-	pdata=data.split('/')[0].split()
-	value = size_options[pdata[3][0]](pdata[2])
-	return value
+        pdata=data.split()
+#        umem_data = pdata[3].split('%')[0]
+	return pdata[3][0]+pdata[3][1]+pdata[3][2]+pdata[3][3]
 
 def lmem(data):
-	pdata=data.split('/')[1].split()
-	value = size_options[pdata[1][0]](pdata[0])
-	return value
+	pdata=data.split()
+#	lmem_data = pdata[5].split('%')[0]
+	return float(pdata[5][0]+pdata[5][1]+pdata[5][3])*1024
 
 def pmem(data):
-	pdata=data.split('/')[1].split()
-	pmem_data=pdata[2].split('%')[0]
+	pdata=data.split()
+	pmem_data = pdata[6].split('%')[0]
 	return pmem_data
 
 def inet(data):
-	pdata=data.split('/')[1].split()
-	value = size_options[pdata[4][0]](pdata[3])
-	return value
+	pdata=data.split()
+	return pdata[7][0]+pdata[7][1]+pdata[7][2]+pdata[7][3]
 
 def onet(data):
-	pdata=data.split('/')[2].split()
-	value = size_options[pdata[1][0]](pdata[0])
-	return value
+	pdata=data.split()
+	return pdata[9][0]+pdata[9][1]+pdata[9][2]+pdata[9][3]
 
 options = {
 	'pcpu':pcpu,
@@ -108,4 +106,5 @@ cmd="docker stats --no-stream=true " + container
 strings = local_run_command(cmd,"/tmp/zabbix-docker-stats-"+container+".out")
 
 print options[key](strings[1])
+
 
